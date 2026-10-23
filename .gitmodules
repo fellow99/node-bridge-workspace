@@ -1,0 +1,9 @@
+[submodule "ohos-node-bridge"]
+	path = ohos-node-bridge
+	url = https://github.com/fellow99/ohos-node-bridge.git
+[submodule "aosp-node-bridge"]
+	path = aosp-node-bridge
+	url = https://github.com/fellow99/aosp-node-bridge.git
+[submodule "node-bridge-website"]
+	path = node-bridge-website
+	url = https://github.com/fellow99/node-bridge-website.git
