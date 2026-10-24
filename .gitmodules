@@ -7,3 +7,9 @@
 [submodule "node-bridge-website"]
 	path = node-bridge-website
 	url = https://github.com/fellow99/node-bridge-website.git
+[submodule "aosp-node-runtime"]
+	path = aosp-node-runtime
+	url = https://github.com/fellow99/aosp-node-runtime.git
+[submodule "ohos-node-runtime"]
+	path = ohos-node-runtime
+	url = https://github.com/fellow99/ohos-node-runtime.git
