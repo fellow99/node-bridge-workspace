@@ -7,23 +7,25 @@ function, not a subprocess, not a shipped binary. A JNI/NAPI bootstrap calls
 `dlopen("libnode.so")` + `node::Start` in-process, with a bidirectional JSON bridge between
 JavaScript and the host language (Kotlin on Android, ArkTS on HarmonyOS).
 
-This workspace is the umbrella for **four repositories** — on each platform the work is split into
+This workspace is the umbrella for **five repositories** — on each platform the work is split into
 two independently published packages: a **bridge** (API + loader, its own semver) and a
-**runtime** (the engine binary, versioned exactly like Node.js). A [project website](node-bridge-website)
+**runtime** (the engine binary, versioned exactly like Node.js). Android also ships a companion
+**node-pty** addon, versioned with the engine. A [project website](node-bridge-website)
 sits alongside them.
 
-## The four repositories
+## The five repositories
 
 | Repository | Platform / registry | Package | Ships |
 |---|---|---|---|
 | [aosp-node-bridge](aosp-node-bridge) | Android · Maven Central | `io.github.fellow99:node-bridge:0.2.0` | Kotlin API, JNI bootstrap (`libnode_bridge.so`), NAPI addon (`libnode_host_client.so`), JS payload |
-| [aosp-node-runtime](aosp-node-runtime) | Android · Maven Central | `io.github.fellow99:node-runtime:24.2.0` | `libnode.so` + `libc++_shared.so` only — engine version **equals** the Node.js version |
+| [aosp-node-runtime](aosp-node-runtime) | Android · Maven Central | `io.github.fellow99:node-runtime:24.22.1` | `libnode.so` + `libc++_shared.so` only — engine version **equals** the Node.js version |
+| [aosp-node-pty](aosp-node-pty) | Android · GitHub Release (Maven pending) | `io.github.fellow99:node-pty:24.22.1` | `libpty_node.so` only — cross-compiled [node-pty](https://www.npmjs.com/package/node-pty) addon, `DT_NEEDED libnode.so`; paired 1:1 with the runtime |
 | [ohos-node-bridge](ohos-node-bridge) | HarmonyOS · [ohpm](https://ohpm.openharmony.cn/) | `@fellow99/node-bridge@0.2.0` | ArkTS API + type declarations, NAPI bootstrap `.so`, crash forensics |
 | [ohos-node-runtime](ohos-node-runtime) | HarmonyOS · [ohpm](https://ohpm.openharmony.cn/) | `@fellow99/node-runtime@24.2.0` | `libnode.so` (arm64-v8a) + `libc++_shared.so`, Node.js LICENSE, version constants |
 | [node-bridge-website](node-bridge-website) | — | — | Project website (EN/中文, light/dark) |
 
-Engine: **Node.js v24.2.0** · ABI **arm64-v8a** · Android `minSdk 24` · HarmonyOS `2in1` / `tablet`
-(no phone).
+Engine: Android **Node.js v24.22.1** · HarmonyOS **Node.js v24.2.0** · ABI **arm64-v8a** · Android `minSdk 24`
+· HarmonyOS `2in1` / `tablet` (no phone). The node-pty addon is version-for-version with the Android runtime (NODE_MODULE_VERSION 137).
 
 ## Why two packages
 
@@ -63,7 +65,9 @@ gates and provenance.
 // build.gradle.kts
 dependencies {
     implementation("io.github.fellow99:node-bridge:0.2.0")
-    runtimeOnly("io.github.fellow99:node-runtime:24.2.0") // engine, pinned to Node
+    runtimeOnly("io.github.fellow99:node-runtime:24.22.1") // engine, pinned to Node
+    // optional: cross-compiled node-pty addon, same version as the runtime (GitHub Release today)
+    runtimeOnly("io.github.fellow99:node-pty:24.22.1")
 }
 ```
 
@@ -92,7 +96,7 @@ your `module.json5`; `--jitless` is the fallback (WebAssembly unavailable).
 
 ## Cloning
 
-All four repositories plus the website are wired in as git submodules:
+All five repositories plus the website are wired in as git submodules:
 
 ```bash
 git clone --recurse-submodules https://github.com/fellow99/node-bridge-workspace.git
@@ -104,6 +108,7 @@ git submodule update --init --recursive
 node-bridge-workspace/
 ├── aosp-node-bridge/      # Android bridge — Kotlin API + JNI/NAPI bootstrap (Maven)
 ├── aosp-node-runtime/     # Android engine — cross-compiled libnode.so AAR (Maven)
+├── aosp-node-pty/         # Android node-pty addon — cross-compiled libpty_node.so (Release, Maven pending)
 ├── ohos-node-bridge/      # HarmonyOS bridge — ArkTS API + NAPI bootstrap (ohpm)
 ├── ohos-node-runtime/     # HarmonyOS engine — libnode.so HAR (ohpm)
 └── node-bridge-website/   # Project website — plain HTML/CSS/JS, EN/中文, light/dark
