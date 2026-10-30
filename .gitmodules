@@ -13,3 +13,6 @@
 [submodule "ohos-node-runtime"]
 	path = ohos-node-runtime
 	url = https://github.com/fellow99/ohos-node-runtime.git
+[submodule "aosp-node-pty"]
+	path = aosp-node-pty
+	url = https://github.com/fellow99/aosp-node-pty.git
