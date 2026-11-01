@@ -27,6 +27,36 @@ sits alongside them.
 Engine: Android **Node.js v24.22.1** · HarmonyOS **Node.js v24.2.0** · ABI **arm64-v8a** · Android `minSdk 24`
 · HarmonyOS `2in1` / `tablet` (no phone). The node-pty addon is version-for-version with the Android runtime (NODE_MODULE_VERSION 137).
 
+## Releases
+
+> ⚠️ **Every artifact is published for AARCH64 (arm64-v8a) only** — no x86 / x86_64 / arm32 builds.
+
+### Android · Maven Central (`io.github.fellow99:*`)
+
+| Package | Version | OS | Arch | Link |
+|---|---|---|---|---|
+| `node-bridge` | 0.1.0 | Android | arm64-v8a | https://repo1.maven.org/maven2/io/github/fellow99/node-bridge/0.1.0/ |
+| `node-bridge` | 0.2.0 | Android | arm64-v8a | https://repo1.maven.org/maven2/io/github/fellow99/node-bridge/0.2.0/ |
+| `node-runtime` | 18.20.4 | Android | arm64-v8a | https://repo1.maven.org/maven2/io/github/fellow99/node-runtime/18.20.4/ |
+| `node-runtime` | 22.23.4 | Android | arm64-v8a | https://repo1.maven.org/maven2/io/github/fellow99/node-runtime/22.23.4/ |
+| `node-runtime` | 24.2.0 | Android | arm64-v8a | https://repo1.maven.org/maven2/io/github/fellow99/node-runtime/24.2.0/ |
+| `node-runtime` | 24.22.1 | Android | arm64-v8a | https://repo1.maven.org/maven2/io/github/fellow99/node-runtime/24.22.1/ |
+| `node-runtime` | 26.13.0 | Android | arm64-v8a | https://repo1.maven.org/maven2/io/github/fellow99/node-runtime/26.13.0/ |
+| `node-pty` | 22.23.4 | Android | arm64-v8a | https://repo1.maven.org/maven2/io/github/fellow99/node-pty/22.23.4/ |
+| `node-pty` | 24.22.1 | Android | arm64-v8a | https://repo1.maven.org/maven2/io/github/fellow99/node-pty/24.22.1/ |
+| `node-pty` | 26.13.0 | Android | arm64-v8a | https://repo1.maven.org/maven2/io/github/fellow99/node-pty/26.13.0/ |
+
+### HarmonyOS · ohpm (`@fellow99/*`)
+
+| Package | Version | OS | Arch | Link |
+|---|---|---|---|---|
+| `node-bridge` | 0.1.0 | OpenHarmony | arm64-v8a | https://ohpm.openharmony.cn/#/cn/detail/@fellow99%2Fnode-bridge/v/0.1.0 |
+| `node-bridge` | 0.2.0 | OpenHarmony | arm64-v8a | https://ohpm.openharmony.cn/#/cn/detail/@fellow99%2Fnode-bridge/v/0.2.0 |
+| `node-runtime` | 24.2.0 | OpenHarmony | arm64-v8a | https://ohpm.openharmony.cn/#/cn/detail/@fellow99%2Fnode-runtime/v/24.2.0 |
+| `node-runtime` | 22.23.4 | OpenHarmony | arm64-v8a | https://ohpm.openharmony.cn/#/cn/detail/@fellow99%2Fnode-runtime/v/22.23.4 |
+| `node-runtime` | 24.22.1 | OpenHarmony | arm64-v8a | https://ohpm.openharmony.cn/#/cn/detail/@fellow99%2Fnode-runtime/v/24.22.1 |
+| `node-runtime` | 26.13.0 | OpenHarmony | arm64-v8a | https://ohpm.openharmony.cn/#/cn/detail/@fellow99%2Fnode-runtime/v/26.13.0 |
+
 ## Why two packages
 
 The bridge and the engine are coupled by a **runtime symbol contract**, not a compile-time link:
