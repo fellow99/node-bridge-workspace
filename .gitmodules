@@ -16,3 +16,18 @@
 [submodule "aosp-node-pty"]
 	path = aosp-node-pty
 	url = https://github.com/fellow99/aosp-node-pty.git
+[submodule "aosp-node-cli"]
+	path = aosp-node-cli
+	url = https://github.com/fellow99/aosp-node-cli.git
+[submodule "aosp-python-cli"]
+	path = aosp-python-cli
+	url = https://github.com/fellow99/aosp-python-cli.git
+[submodule "aosp-git-cli"]
+	path = aosp-git-cli
+	url = https://github.com/fellow99/aosp-git-cli.git
+[submodule "aosp-uv-cli"]
+	path = aosp-uv-cli
+	url = https://github.com/fellow99/aosp-uv-cli.git
+[submodule "aosp-pnpm-cli"]
+	path = aosp-pnpm-cli
+	url = https://github.com/fellow99/aosp-pnpm-cli.git

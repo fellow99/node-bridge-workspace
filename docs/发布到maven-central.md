@@ -567,6 +567,35 @@ curl -s -o /dev/null -w "%{http_code}\n" \
 
 ---
 
+## 10. 五条 CLI 线的复用（2026-11-02 登记，⬜ 未实测）
+
+> 工作区新增五条 exec 型工具线（`node-cli` / `python-cli` / `git-cli` / `uv-cli` / `pnpm-cli`，
+> 见 `docs/aosp+node+python+git运行方案.md` §9）。它们沿用与 node-pty **完全同构**的发布面
+> （settings pluginManagement 装 vanniktech 0.37.0 + 仓库根 `publish.gradle.kts` 镜像移植 +
+> `<tool>-cli.lock.json` 同纪律），并采用 **「GitHub Release 先行、Maven Central 随后」**
+> 的两段式节奏（pty 同款）：
+
+| 仓 | 坐标（CLI_VERSION = 上游版本） | GitHub Release（先行） | Maven Central（随后） | 备注 |
+|---|---|---|---|---|
+| aosp-node-cli | `io.github.fellow99:node-cli:<Node版本>` | M1 | M3 | 与 runtime/pty 同版本配对 |
+| aosp-python-cli | `…:python-cli:<CPython 版本>` | M1 | M3 | assets 携带 stdlib/ensurepip/CA |
+| aosp-git-cli | `…:git-cli:<git 版本>` | M1 | M3 | GPLv2 对应源码随 Release 归档 |
+| aosp-uv-cli | `…:uv-cli:<uv 版本>` | M1 | M3 | cargo 许可清单随 Release 归档 |
+| aosp-pnpm-cli | `…:pnpm-cli:<pnpm 版本>` | M3.5 | M4 | 运行期依赖 node-cli；openProbes 先行 |
+
+- **先行段**（各仓 M1/M3.5）：tag `v<上游版本>` 推送触发真实交叉编译流水线 → exec 门禁 →
+  Release 归档（二进制 + assets + BUILD/FETCH-METADATA + LICENSES + `.sha256`）→
+  lock 回写 `status=released`；
+- **随后段**（各仓 M3/M4）：完全按本文 §2（一次性凭据）→ §4（发布前检查）→ §5（上传与
+  两种发布模式）→ §6（核验 + 回填 `mavenCentral.published=true`）执行；版本源属性为
+  `CLI_VERSION`（与 node 系 `PTY_VERSION`/`RUNTIME_VERSION` 同族纪律；CLI 线不存在
+  NODE_ 前缀问题）；
+- 本文 §1–§9 的全部纪律（版本不可变、Portal Publish、POM 自查、常见坑）对五仓同样适用；
+  五仓各自的 `docs/000-工程规划.md`「发布模式」小节为权威入口；⬜ 五线首次实走 Maven 后
+  回填本节实测事实。
+
+---
+
 ## 附录 A：现状实测（2026-11-01）
 
 ```text
